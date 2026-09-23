@@ -8,7 +8,7 @@ import config as cfg
 class Notem(nn.Module):
     def __init__(self, device, decision_window):
         super(Notem, self).__init__()
-        self.model = base(1)
+        self.model = base(1).to(device)
         self.num_classes = 2
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
     def train(self, train_loader, device, epoch, N_epoch):

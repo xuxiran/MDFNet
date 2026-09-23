@@ -8,7 +8,7 @@ import config as cfg
 class Base(nn.Module):
     def __init__(self, device, decision_window):
         super(Base, self).__init__()
-        self.model = base(decision_window)
+        self.model = base(decision_window).to(device)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
 
     def train(self, train_loader, device, epoch, N_epoch):

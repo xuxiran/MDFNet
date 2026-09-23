@@ -4,6 +4,8 @@ __pycache__/
 .venv/
 data/
 outputs/
+outputs_loso/
+outputs_fig2/
 logs/
 *.mat
 *.ckpt

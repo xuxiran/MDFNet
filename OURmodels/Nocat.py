@@ -8,7 +8,7 @@ import config as cfg
 class Nocat(nn.Module):
     def __init__(self, device, decision_window):
         super(Nocat, self).__init__()
-        self.model = base(decision_window)
+        self.model = base(decision_window).to(device)
 
         self.num_classes = 2
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
