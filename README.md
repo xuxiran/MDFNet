@@ -61,6 +61,14 @@ sbatch --export=ALL,DATASET=KUL,CONDITION=All,FOLD=0,DATA_DIR=/path/to/data,OUTP
 
 Run all 11 conditions for folds `0` through `3` (44 jobs per dataset). Outputs include condition masks, split/order information and hashes in `manifest.json`, epoch history, best checkpoint, predictions, and test metrics. Huairou training must use Slurm; `--allow-local` is for non-Huairou hosts. Diagnostic `--smoke --epochs 2` runs are not paper-protocol results.
 
+After all 44 jobs for each dataset complete (88 total), aggregate the new run metrics and write a CSV plus a regenerated two-panel figure to a separate output directory:
+
+```bash
+python analysis/aggregate_fig2.py --input-dir outputs_fig2 --output-dir reports/fig2_rerun
+```
+
+Aggregation requires all four folds for all 11 conditions on both KUL and DTU, with matching manifests for the full 50-epoch protocol; diagnostic `--smoke` manifests are rejected. The generated figure summarizes these new reruns; it is not the frozen historical Fig. 2 or its underlying historical CSV. Fig. 2 uses 128-sample trial windows, so each trial length must be divisible by 128; masked channels and bands are zero-filled while retaining the same 30,534-parameter architecture. On Huairou, submit every training run through Slurm.
+
 ## Baseline source scope
 
 ListenNet, MHANet, DARNet, and DBPNet source is not included because redistribution permission has not been confirmed. Their official upstream repositories are [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), and [DBPNet](https://github.com/fchest/DBPNet). Readers must obtain those projects themselves, check the applicable licenses, and adapt them to the same splits; upstream defaults are not equivalent to this release's protocols. CNN, XANet, and DenseNet are also not bundled. STANet is not part of the paper's seven-baseline set.

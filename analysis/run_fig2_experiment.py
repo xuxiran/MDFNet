@@ -44,7 +44,6 @@ def parse_args():
     parser.add_argument("--fold", type=int, choices=range(4), required=True)
     parser.add_argument("--data-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, default=Path("outputs_fig2"))
-    parser.add_argument("--regions-json", type=Path, default=ROOT / "configs" / "regions.json")
     parser.add_argument("--seed", type=int, default=2025)
     parser.add_argument("--epochs", type=int, default=50)
     parser.add_argument("--batch-size", type=int, default=128)
@@ -171,7 +170,8 @@ def main(args=None):
     rows = {name: make_rows(data.shape[0], trial_ids, windows) for name, trial_ids in
             (("train", train_trials), ("validation", valid_trials), ("test", test_trials))}
     full_bands = torch.from_numpy(preprocess(data)).to(device=device)
-    channels, band_ids = condition_masks(args.condition, load_regions(args.regions_json))
+    regions_path = ROOT / "configs" / "regions.json"
+    channels, band_ids = condition_masks(args.condition, load_regions(regions_path))
     channel_mask = torch.zeros(64, device=device)
     channel_mask[torch.tensor(channels, device=device) - 1] = 1
     grid_ids = torch.as_tensor(np.maximum(GRID.reshape(-1) - 1, 0), dtype=torch.long, device=device)
@@ -194,7 +194,7 @@ def main(args=None):
                 "learning_rate": 0.001, "weight_decay": 0.01, "parameter_count": parameter_count,
                 "resident_before_training": True, "determinism": "cudnn deterministic=False, benchmark=True; not bitwise reproduction",
                 "data_sha256": sha256_file(data_path),
-                "regions_json_sha256": sha256_file(args.regions_json),
+                "regions_json_sha256": sha256_file(regions_path),
                 "base_sha256": sha256_file(ROOT / "OURmodels" / "Base.py"),
                 "original_trial_order": orders,
                 "trial_splits": {name: values.tolist() for name, values in
