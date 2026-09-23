@@ -71,7 +71,7 @@ Aggregation requires all four folds for all 11 conditions on both KUL and DTU, w
 
 ## Baseline source scope
 
-ListenNet, MHANet, DARNet, and DBPNet source is not included because redistribution permission has not been confirmed. Their official upstream repositories are [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), and [DBPNet](https://github.com/fchest/DBPNet). Readers must obtain those projects themselves, check the applicable licenses, and adapt them to the same splits; upstream defaults are not equivalent to this release's protocols. CNN, XANet, and DenseNet are also not bundled. STANet is not part of the paper's seven-baseline set.
+ListenNet, MHANet, DARNet, and DBPNet source is not included because redistribution permission has not been confirmed. Their official upstream repositories are [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), and [DBPNet](https://github.com/fchest/DBPNet). Readers must obtain those projects themselves, check the applicable licenses, and adapt them to the same splits; upstream defaults are not equivalent to this release's protocols. The historical CNN and XANet adapters are also omitted because their source provenance and redistribution rights are not verified for this release. [ASAD-DenseNet](https://github.com/xuxiran/ASAD_DenseNet) is MIT-licensed upstream, but a verified same-protocol adapter is not bundled here. STANet is not part of the paper's seven-baseline set.
 
 No blanket repository license is added. Confirm redistribution rights for retained source and bundled dependencies before redistributing this repository.
 
