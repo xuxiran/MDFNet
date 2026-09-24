@@ -4,6 +4,8 @@ Multi-Dimension Fusion of EEG Features for Auditory Spatial Attention Decoding.
 
 This release provides MDFNet, the in-repository ablations `Nofre`, `Notem`, and `Nocat`, and seven paper baselines: `CNN`, `XANet`, `DenseNet`, `DARNet`, `DBPNet`, `ListenNet`, and `MHANet`. All seven baselines are selectable through lazy model imports in the LTO/LOSO runner. DARNet and DBPNet use MNE CSP preprocessing fitted on training data only. The bundled implementations have received synthetic or structural validation; this release has not rerun the real-data experiments or established equivalence with historical baseline scores. It documents three protocols: four-fold trial-disjoint LTO (`main.py`), 0.5-second subject-holdout LOSO (`run_loso.py`), and the 1-second Fig. 2 conditions (`analysis/run_fig2_experiment.py`). 
 
+The [`evidence/`](evidence/README.md) directory contains the historical results currently traceable to the paper, including all 0.5-second LOSO subject results and the subset of LTO folds with matching archived runs. It states the missing LTO provenance explicitly.
+
 
 ## LTO: trial-disjoint
 

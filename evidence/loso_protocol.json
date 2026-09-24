@@ -1,0 +1,42 @@
+{
+  "description": "Selected fields from retained historical configurations; the released subject CSV selects seed 2025 and 64-sample windows only",
+  "sample_rate_hz": 128,
+  "window_samples": 64,
+  "seed": 2025,
+  "epochs": 50,
+  "batch_size": 128,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "weight_decay": 0.01,
+  "subject_holdout": {
+    "DTU": {
+      "target_subjects": 21,
+      "source_train_trials_per_subject": 24,
+      "source_validation_trials_per_subject": 8,
+      "target_test_trials": 32
+    },
+    "KUL": {
+      "target_subjects": 16,
+      "source_train_trials_per_subject": 6,
+      "source_validation_trials_per_subject": 2,
+      "target_test_trials": 8
+    }
+  },
+  "source_runs": {
+    "exp037": {
+      "experiment": "exp037_dtu_loso_fair_baselines",
+      "original_config_sha256": "873ae42bc7e53230ed8465896689174d9680b1a71648345f4452ac79b4fc3c7e",
+      "original_subject_result_sha256": "0b49ebc59e4a3bccca33cd4d7d6bdb253ebdcc8884edfffe07d5ddc0c0eb3566"
+    },
+    "exp038": {
+      "experiment": "exp038_legacy_baselines_fair",
+      "original_config_sha256": "a5774e7fe8a52b49f99417c43865a79f4ab85fa49f773b917c1604850d589d68",
+      "original_subject_result_sha256": "c6a2ea30c0d04fac1c720c7c97f25dea7135ff4b63474d101082449fd3bd326d"
+    },
+    "exp042": {
+      "experiment": "exp042_aaai_mdfnet_loso_3windows",
+      "original_config_sha256": "c8a011fcde25fbc7567d12cfe537b572f3d1a9e6decaaca16418308c9e803dd9",
+      "original_subject_result_sha256": "c07267279f5ecbed1e5713159a2f40675114a2cfc6af473200598177ab84f50a"
+    }
+  }
+}

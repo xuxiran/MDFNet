@@ -1,0 +1,64 @@
+{
+  "selection": "seed 2025; LTO cells matching the current paper; all eight paper LOSO models at 0.5 s",
+  "data_sha256": {
+    "DTU": "f16f48bc1c49baf84ee31ae33085e18cc1f2668c0c19970c0199c67003f70cfc",
+    "KUL": "def7dc3d698197b243cde95774949c5e604310e51f8b7d9bab25f12d2472100c"
+  },
+  "lto_sources": {
+    "yj_dtu_20260923": {
+      "experiment": "MDFNet_DTU_uniform_lto_20260923",
+      "models": ["ListenNet", "MHANet"],
+      "dataset": "DTU",
+      "window_samples": [64, 128, 256],
+      "result_file": "results_24.csv",
+      "result_sha256": "f6be7279f10ac240506c9b43f89e8c54930ae586a9421e9ef2ef24f36d907ac4",
+      "config_file": "code/configs/protocols.json",
+      "config_sha256": "adcac1541017674799a81abce721398fbb7e26e529b7787c7efab53ecd44352d",
+      "validation_file": "validation_report.json",
+      "validation_sha256": "4ebf8bf7ac53e1033a84cb80e4b3cc5047be64a91aab47b9e4720e1b07fe4c4f",
+      "validation": "24/24 folds passed"
+    },
+    "exp036_listennet_strict_lto": {
+      "models": ["ListenNet"],
+      "dataset": "KUL",
+      "window_samples": [64],
+      "config_file": "configs/protocol.json",
+      "config_sha256": "80f0cdf5e4b9ad0db8ec96b57b0e2b4ff599e3216209b59ec3a34ffb7c5d39c5",
+      "validation_file": "derived_results/full_job3109443/validation.json",
+      "validation_sha256": "64f7efd9c943a20216211c4cfefbbe7be6332c204bd2513d6e155df73d5a92ba"
+    },
+    "exp038_legacy_baselines_fair": {
+      "models": ["MHANet"],
+      "dataset": "KUL",
+      "window_samples": [64],
+      "result_file": "derived_results/lto_cell_results.csv",
+      "result_sha256": "f1c9285562832cafa92a110a85d8996025965e801ce3342a8ccc060db1b52701",
+      "config_file": "configs/protocol.json",
+      "config_sha256": "a5774e7fe8a52b49f99417c43865a79f4ab85fa49f773b917c1604850d589d68"
+    },
+    "exp040_mdfnet_long_windows_lto": {
+      "models": ["ListenNet", "MHANet"],
+      "dataset": "KUL",
+      "window_samples": [128, 256],
+      "result_file": "derived_results/full_cells.csv",
+      "result_sha256": "6ebb2d30a696ed77a8682f44c86f0b3d6f810927edb385cfe00eb38be519412d",
+      "config_file": "configs/protocol.json",
+      "config_sha256": "da1197aa0c650bfd1443ef833996a0307396c8ae627b3c3fa5c6296815e45871"
+    },
+    "exp041_mdfnet_fig2_1s_lto": {
+      "models": ["MDFNet"],
+      "dataset": "DTU and KUL",
+      "window_samples": [128],
+      "result_file": "derived_results/full/cell_results.csv",
+      "result_sha256": "2a26c1d91efc1e5366e65917091651d27ec74fa5f75a54d7bfaf90aead270645",
+      "config_file": "configs/protocol.json",
+      "config_sha256": "32f010cddca9974893f5eaf030df2f321544182137a0ae5e8bbb10bda6b0fe9f"
+    }
+  },
+  "loso_archive": {
+    "source_experiments": ["exp037_dtu_loso_fair_baselines", "exp038_legacy_baselines_fair", "exp042_aaai_mdfnet_loso_3windows"],
+    "archived_subject_results_sha256": "5079118c9d4ef6a4a664d9a0e797685653dd87bd2221526363ba3b5f470988c3",
+    "archived_summary_sha256": "1d46366b66e5b012902df04c7dfa38ba54fd745815f7de11e37dc886f77507a3",
+    "source_archive": "MDFNet_ICASSP_v8/results/loso_05s"
+  }
+}
