@@ -2,22 +2,8 @@
 
 Multi-Dimension Fusion of EEG Features for Auditory Spatial Attention Decoding.
 
-This release provides MDFNet, the in-repository ablations `Nofre`, `Notem`, and `Nocat`, and seven paper baselines: `CNN`, `XANet`, `DenseNet`, `DARNet`, `DBPNet`, `ListenNet`, and `MHANet`. All seven baselines are selectable through lazy model imports in the LTO/LOSO runner. DARNet and DBPNet use MNE CSP preprocessing fitted on training data only. The bundled implementations have received synthetic or structural validation; this release has not rerun the real-data experiments or established equivalence with historical baseline scores. It documents three protocols: four-fold trial-disjoint LTO (`main.py`), 0.5-second subject-holdout LOSO (`run_loso.py`), and the 1-second Fig. 2 conditions (`analysis/run_fig2_experiment.py`). The paper's reported numbers are frozen historical results. The current cuDNN settings (`deterministic=False`, `benchmark=True`) do not provide exact bitwise reproduction of exp041/042.
+This release provides MDFNet, the in-repository ablations `Nofre`, `Notem`, and `Nocat`, and seven paper baselines: `CNN`, `XANet`, `DenseNet`, `DARNet`, `DBPNet`, `ListenNet`, and `MHANet`. All seven baselines are selectable through lazy model imports in the LTO/LOSO runner. DARNet and DBPNet use MNE CSP preprocessing fitted on training data only. The bundled implementations have received synthetic or structural validation; this release has not rerun the real-data experiments or established equivalence with historical baseline scores. It documents three protocols: four-fold trial-disjoint LTO (`main.py`), 0.5-second subject-holdout LOSO (`run_loso.py`), and the 1-second Fig. 2 conditions (`analysis/run_fig2_experiment.py`). 
 
-## Installation and data
-
-Use Python 3.10 or later and install a PyTorch build suitable for the target device:
-
-```bash
-pip install -r requirements.txt
-python main.py --help
-python run_loso.py --help
-python analysis/run_fig2_experiment.py --help
-```
-
-Data are not included. Obtain KUL/DTU through their original distribution channels and place MATLAB v7.3 (HDF5) files named `KUL_1D.mat` and `DTU_1D.mat` in a data directory. After reversing MATLAB/HDF5 dimensions, `EEG` must have shape `[subjects, trials, time_samples, 64]`; `ENV` must have shape `[subjects, trials, time_samples]`. EEG values must be finite, and each trial must have one binary label. The input contract is preprocessed EEG sampled at 128 Hz; this package does not convert raw recordings or perform upstream 1–50 Hz preprocessing. Channel order must match the 64-channel mapping in `AADdataset.py`.
-
-All required input/features are loaded into memory and made resident on the selected device before training; there is no memory-mapped or streaming fallback. Check available host and GPU memory before submitting. Training uses one seed, 2025. Run outputs include a manifest with data/configuration provenance, per-epoch history, and the best validation checkpoint (`best.ckpt`). Existing nonempty run directories are not overwritten.
 
 ## LTO: trial-disjoint
 
