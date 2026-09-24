@@ -17,7 +17,7 @@ from BASEmodels.MHANet import MHANet
 # MDFNet/BASE are aliases for the proposed five-band model.  The remaining
 # entries are the eight baselines and three supported ablations.
 MODEL_NAMES = (
-    "MDFNet", "BASE", "STANet", "CNN", "XANet", "DenseNet", "DARNet",
+    "MDFNet", "BASE", "CNN", "XANet", "DenseNet", "DARNet",
     "DBPNet", "ListenNet", "MHANet", "Nofre", "Notem", "Nocat",
 )
 
@@ -30,7 +30,6 @@ def get_model(model_name, decision_window, sbnum, device):
         "Nofre": (Nofre, "OURmodels"),
         "Notem": (Notem, "OURmodels"),
         "Nocat": (Nocat, "OURmodels"),
-        "STANet": (STANet, "BASEmodels"),
         "CNN": (CNN, "BASEmodels"),
         "XANet": (XANet, "BASEmodels"),
         "DenseNet": (DenseNet, "BASEmodels"),
