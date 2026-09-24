@@ -2,7 +2,7 @@
 
 Multi-Dimension Fusion of EEG Features for Auditory Spatial Attention Decoding.
 
-This release includes MDFNet and the in-repository ablations `Nofre`, `Notem`, and `Nocat`. It documents three executable protocols: four-fold trial-disjoint LTO (`main.py`), 0.5-second subject-holdout LOSO (`run_loso.py`), and the 1-second Fig. 2 conditions (`analysis/run_fig2_experiment.py`). The paper's reported numbers are frozen historical results. This release has not rerun the real-data experiments; its new cuDNN settings (`deterministic=False`, `benchmark=True`) do not provide exact bitwise reproduction of exp041/042. It makes no claim that baselines have been reproduced.
+This release includes MDFNet, the in-repository ablations `Nofre`, `Notem`, and `Nocat`, and an MIT-licensed ASAD-DenseNet reference adapter. It documents three executable protocols: four-fold trial-disjoint LTO (`main.py`), 0.5-second subject-holdout LOSO (`run_loso.py`), and the 1-second Fig. 2 conditions (`analysis/run_fig2_experiment.py`). The paper's reported numbers are frozen historical results. This release has not rerun the real-data experiments; its new cuDNN settings (`deterministic=False`, `benchmark=True`) do not provide exact bitwise reproduction of exp041/042. It does not claim to reproduce the historical baseline scores.
 
 ## Installation and data
 
@@ -71,7 +71,19 @@ Aggregation requires all four folds for all 11 conditions on both KUL and DTU, w
 
 ## Baseline source scope
 
-ListenNet, MHANet, DARNet, and DBPNet source is not included because redistribution permission has not been confirmed. Their official upstream repositories are [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), and [DBPNet](https://github.com/fchest/DBPNet). Readers must obtain those projects themselves, check the applicable licenses, and adapt them to the same splits; upstream defaults are not equivalent to this release's protocols. The historical CNN and XANet adapters are also omitted because their source provenance and redistribution rights are not verified for this release. [ASAD-DenseNet](https://github.com/xuxiran/ASAD_DenseNet) is MIT-licensed upstream, but a verified same-protocol adapter is not bundled here.
+The paper compares seven baseline families, but this release does not bundle their historical experiment adapters or claim to reproduce their reported scores. Several archived adapter files combine dataset glue with third-party model implementations; publishing those files would redistribute the upstream models, not just our glue.
+
+| Baseline | Why its historical code is not bundled |
+| --- | --- |
+| [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), [DBPNet](https://github.com/fchest/DBPNet) | Their public upstream repositories do not provide a redistribution license. We have not obtained permission to re-host their model code, so their combined historical adapters are withheld. Public source availability is not a redistribution grant. |
+| [CNN](https://github.com/exporl/locus-of-auditory-attention-cnn) | The [official KU Leuven license](https://github.com/exporl/locus-of-auditory-attention-cnn/blob/master/LICENSE.md) restricts transfer of the software and distribution of improvements without prior written agreement. The historical Python adaptation's provenance is also not established. |
+| XANet | The provenance and redistribution rights of the historical implementation have not been verified. |
+
+Obtain those models from their original sources and check their terms before use. Their upstream preprocessing and split defaults are not substitutes for this release's LTO or LOSO protocols. Lack of an upstream license means permission is unconfirmed; it does not imply that the authors explicitly prohibit every use.
+
+### MIT-licensed ASAD-DenseNet adapter
+
+The separately licensed [ASAD-DenseNet](https://github.com/xuxiran/ASAD_DenseNet) model is the one baseline implementation bundled here. `BASEmodels/DenseNet.py` adapts its 3D DenseNet to the release's model API and takes the broadband topographic waveform `X[2]` with shape `[batch, time, 10, 11]`. Its upstream copyright and MIT terms are retained in `LICENSES/ASAD_DenseNet_LICENSE`. Run it with `--model DenseNet` in the LTO or LOSO commands above. Synthetic CPU tests cover all three window lengths, training steps, and checkpoint loading; no real-data rerun has established equivalence to the paper's historical DenseNet results.
 
 No blanket repository license is added. Confirm redistribution rights for retained source and bundled dependencies before redistributing this repository.
 

@@ -25,7 +25,7 @@ def main():
         model, _ = get_model(model_name, window, 1, device)
         model.model.eval()
         with torch.inference_mode():
-            if model_name == "Nofre":
+            if model_name in ("Nofre", "DenseNet"):
                 output = model.model(features[2])
             elif model_name == "Notem":
                 output = model.model(frequency_features)

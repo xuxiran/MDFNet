@@ -4,10 +4,11 @@ from OURmodels.Base import Base
 from OURmodels.Nofre import Nofre
 from OURmodels.Notem import Notem
 from OURmodels.Nocat import Nocat
+from BASEmodels.DenseNet import DenseNet
 
 
 MODEL_NAMES = (
-    "MDFNet", "Nofre", "Notem", "Nocat",
+    "MDFNet", "Nofre", "Notem", "Nocat", "DenseNet",
 )
 
 
@@ -18,6 +19,7 @@ def get_model(model_name, decision_window, sbnum, device):
         "Nofre": (Nofre, "OURmodels"),
         "Notem": (Notem, "OURmodels"),
         "Nocat": (Nocat, "OURmodels"),
+        "DenseNet": (DenseNet, "BASEmodels"),
     }
     try:
         constructor, model_type = constructors[model_name]
