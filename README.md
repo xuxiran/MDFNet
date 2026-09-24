@@ -69,17 +69,7 @@ python analysis/aggregate_fig2.py --input-dir outputs_fig2 --output-dir reports/
 
 Aggregation requires all four folds for all 11 conditions on both KUL and DTU, with matching manifests for the full 50-epoch protocol; diagnostic `--smoke` manifests are rejected. The generated figure summarizes these new reruns; it is not the frozen historical Fig. 2 or its underlying historical CSV. Fig. 2 uses 128-sample trial windows, so each trial length must be divisible by 128; masked channels and bands are zero-filled while retaining the same 30,534-parameter architecture. On Huairou, submit every training run through Slurm.
 
-## Baseline source scope
 
-The paper compares seven baseline families, but this release does not bundle their historical experiment adapters or claim to reproduce their reported scores. Several archived adapter files combine dataset glue with third-party model implementations; publishing those files would redistribute the upstream models, not just our glue.
-
-| Baseline | Why its historical code is not bundled |
-| --- | --- |
-| [ListenNet](https://github.com/fchest/ListenNet), [MHANet](https://github.com/fchest/MHANet), [DARNet](https://github.com/fchest/DARNet), [DBPNet](https://github.com/fchest/DBPNet) | Their public upstream repositories do not provide a redistribution license. We have not obtained permission to re-host their model code, so their combined historical adapters are withheld. Public source availability is not a redistribution grant. |
-| [CNN](https://github.com/exporl/locus-of-auditory-attention-cnn) | The [official KU Leuven license](https://github.com/exporl/locus-of-auditory-attention-cnn/blob/master/LICENSE.md) restricts transfer of the software and distribution of improvements without prior written agreement. The historical Python adaptation's provenance is also not established. |
-| XANet | The provenance and redistribution rights of the historical implementation have not been verified. |
-
-Obtain those models from their original sources and check their terms before use. Their upstream preprocessing and split defaults are not substitutes for this release's LTO or LOSO protocols. Lack of an upstream license means permission is unconfirmed; it does not imply that the authors explicitly prohibit every use.
 
 ### MIT-licensed ASAD-DenseNet adapter
 
