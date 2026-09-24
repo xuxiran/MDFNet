@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader
 
 import config as cfg
 from AADdataset import AADdataset
+from baseline_csp import fit_baseline_csp
 from get_model import get_model, MODEL_NAMES
 
 
@@ -113,7 +114,8 @@ def run(args):
     arrays = {}
     for name, ids in splits.items():
         arrays[name] = (data[:, ids].reshape(-1, data.shape[2], 64), labels[:,ids].reshape(-1,labels.shape[2]))
-    datasets = {n: resident_dataset(AADdataset(x, y, 128, args.decision_window, args.dataset), device)
+    csp_pipe = fit_baseline_csp(args.model, *arrays['train'])
+    datasets = {n: resident_dataset(AADdataset(x, y, 128, args.decision_window, args.dataset, csp_pipe), device)
                 for n,(x,y) in arrays.items()}
     loaders = {n:DataLoader(d, batch_size=args.batch_size, shuffle=n=='train', num_workers=0) for n,d in datasets.items()}
     model, _ = get_model(args.model, args.decision_window, len(arrays['train'][0]), device)
@@ -122,6 +124,8 @@ def run(args):
                 'batch_size':args.batch_size, 'learning_rate':cfg.lr, 'weight_decay':cfg.weight_decay,
                 'device':str(device),
                 'resident_before_training':True, 'original_trial_order':order.tolist(),
+                'csp':({'components':64, 'transform_into':'csp_space', 'fit_trials':len(arrays['train'][0]),
+                        'fit_scope':'train'} if csp_pipe is not None else None),
                 'trial_splits':{n:ids.tolist() for n,ids in splits.items()},
                 'windows':{n:len(d) for n,d in datasets.items()},
                 'parameter_count':sum(p.numel() for p in model.parameters()),

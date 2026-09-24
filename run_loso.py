@@ -16,6 +16,7 @@ from torch.utils.data import DataLoader
 
 import config as cfg
 from AADdataset import AADdataset
+from baseline_csp import fit_baseline_csp
 from get_model import MODEL_NAMES, get_model
 from loso_utils import aggregate_metrics, reorder_trials, source_trial_split
 from main import resident_dataset
@@ -106,7 +107,8 @@ def run(args: argparse.Namespace) -> dict | None:
         "valid": flatten(source_subjects, valid_ids),
         "test": flatten([args.test_subject], list(range(trials))),
     }
-    datasets = {name: resident_dataset(AADdataset(x, y, 128, args.decision_window, args.dataset), device)
+    csp_pipe = fit_baseline_csp(args.model, *arrays["train"])
+    datasets = {name: resident_dataset(AADdataset(x, y, 128, args.decision_window, args.dataset, csp_pipe), device)
                 for name, (x, y) in arrays.items()}
     loaders = {name: DataLoader(dataset, batch_size=args.batch_size, shuffle=name == "train", num_workers=0)
                for name, dataset in datasets.items()}
@@ -122,6 +124,8 @@ def run(args: argparse.Namespace) -> dict | None:
         "weight_decay": cfg.weight_decay, "source_train_trial_ids": train_ids,
         "source_valid_trial_ids": valid_ids, "target_trial_count": trials,
         "resident_before_training": True, "data_sha256": sha256(data_path), "original_trial_order": orders,
+        "csp": ({"components": 64, "transform_into": "csp_space", "fit_trials": len(arrays["train"][0]),
+                 "fit_scope": "train"} if csp_pipe is not None else None),
         "parameter_count": sum(parameter.numel() for parameter in model.parameters()),
     }
     (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

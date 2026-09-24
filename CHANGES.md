@@ -6,6 +6,6 @@
 - Record the 128 Hz data contract, full in-memory/device residency requirement, single seed (2025), and per-run manifest, epoch history, and best-checkpoint outputs.
 - Move each MDFNet/ablation inner model to the selected device before creating its optimizer, so GPU training updates the model's active parameters.
 - State that paper results remain frozen historical numbers: no real-data rerun or exact bitwise reproduction of exp041/042 under the current cuDNN settings is claimed. No baseline reproduction is claimed.
-- Explain why combined historical baseline adapters are withheld: ListenNet, MHANet, DARNet, and DBPNet lack a redistribution grant; the official CNN license restricts transfer; XANet provenance and rights are unverified. Link original sources and distinguish public availability from redistribution permission.
-- Include a separately attributed MIT-licensed ASAD-DenseNet reference adapter with synthetic LTO/LOSO interface tests; do not present it as a reproduction of the paper's frozen baseline scores.
-- Add no blanket repository license.
+- Document the supported LTO/LOSO model choices: MDFNet, its `Nofre`/`Notem`/`Nocat` ablations, and all seven paper baselines (CNN, XANet, DenseNet, DARNet, DBPNet, ListenNet, and MHANet); clarify that `BASE` aliases MDFNet and that model imports are lazy.
+- Include provenance links and attribution guidance for all seven bundled baseline implementations; retain the upstream MIT terms for the ASAD-DenseNet adapter.
+- Document MNE CSP fitting on training data only for DARNet and DBPNet. Record that baselines received synthetic or structural validation only, with no real-data rerun or historical score equivalence claimed.

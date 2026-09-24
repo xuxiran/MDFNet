@@ -4,3 +4,5 @@ scipy>=1.10
 h5py>=3.8
 tqdm>=4.65
 matplotlib>=3.7
+mne>=1.5
+scikit-learn>=1.2

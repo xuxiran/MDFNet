@@ -5,7 +5,6 @@ import numpy as np
 import tqdm
 import config as cfg
 import math
-from torchsummary import summary
 
 class DARNet(nn.Module):
 

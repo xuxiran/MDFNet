@@ -13,7 +13,7 @@ class OptimizerDeviceTests(unittest.TestCase):
     def test_optimizer_tracks_inner_model_parameters_on_cpu(self):
         for model_name in MODEL_NAMES:
             with self.subTest(model_name=model_name):
-                model, _ = get_model(model_name, 4, 1, torch.device("cpu"))
+                model, _ = get_model(model_name, 64, 1, torch.device("cpu"))
                 optimizer_parameters = [
                     parameter
                     for group in model.optimizer.param_groups
@@ -30,11 +30,11 @@ class OptimizerDeviceTests(unittest.TestCase):
     @unittest.skipUnless(torch.cuda.is_available(), "CUDA is unavailable")
     def test_cuda_optimizer_updates_inner_model_parameter(self):
         device = torch.device("cuda")
-        model, _ = get_model("MDFNet", 4, 1, device)
+        model, _ = get_model("MDFNet", 64, 1, device)
         model.model.train()
         parameter = next(model.model.parameters())
         before = parameter.detach().clone()
-        features = [torch.randn(1, 4, 10, 11, device=device) for _ in range(5)]
+        features = [torch.randn(1, 64, 10, 11, device=device) for _ in range(5)]
 
         model.optimizer.zero_grad()
         loss = model.model(*features).sum()

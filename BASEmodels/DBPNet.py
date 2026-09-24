@@ -6,7 +6,6 @@ import tqdm
 from torch.nn import Parameter
 import config as cfg
 import math
-from torchsummary import summary
 
 class DBPNet(nn.Module):
     def __init__(self, device, decision_window):
